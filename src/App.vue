@@ -1,60 +1,94 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <header class="header">
+      <h1 class="header__title">Sudoku</h1>
+    </header>
+    <main class="container">
+      <grid></grid>
+      <aside>
+        <button class="restart" @click="generateBoards">Restart</button>
+      </aside>
+    </main>
   </div>
 </template>
 
 <script>
+import Grid from "./components/Grid.vue";
+import { SudokuGenerator } from "js-sudoku-generator";
+
 export default {
-  name: 'app',
-  data () {
+  components: { Grid },
+  name: "app",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      solution: [],
+      sheet: []
+    };
+  },
+
+  methods: {
+    generateBoards() {
+      SudokuGenerator.generate(1);
+
+      const board = SudokuGenerator.generatedBoards[0];
+      this.solution = board.board;
+      this.sheet = board.getSheet(0);
+      this.$children[0] && this.$children[0].$el.classList.remove("solved");
     }
+  },
+
+  created() {
+    this.generateBoards();
   }
-}
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
+* {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
+  font-family: Roboto, sans-serif;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+body {
+  text-align: center;
 }
 
-a {
-  color: #42b983;
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 3em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header {
+  background-color: rgb(171, 97, 218);
+  padding: 12px;
+  &__title {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    color: white;
+    text-decoration: underline;
+    font-weight: lighter;
+  }
+}
+
+.restart {
+  background-color: rgb(206, 78, 167);
+  color: #fff;
+  border: 0px;
+  font-size: 1.2em;
+  font-weight: lighter;
+  margin: 0px;
+  padding: 15px 30px;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #c0392b;
+    cursor: pointer;
+  }
 }
 </style>
