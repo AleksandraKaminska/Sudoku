@@ -1,0 +1,16 @@
+.board {
+  border-collapse: collapse;
+  transition: all 0.5s;
+}
+
+tr:nth-child(3n) {
+  border-bottom: 2px solid gray;
+}
+
+tr:nth-child(3n + 1) {
+  border-top: 2px solid gray;
+}
+
+.solved input {
+  color: green;
+}
