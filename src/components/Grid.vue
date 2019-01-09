@@ -1,54 +1,98 @@
 <template>
-  <form id="sudoku" ref="form">
-    <table class="board">
-      <tr v-for="(row, ir) in this.$parent.sheet" :key="ir">
-        <!-- <tr v-for="(row, ir) in this.$parent.solution" :key="ir"> -->
-        <td v-for="(cell, ic) in row" :key="ic">
-          <input
-            type="tel"
-            maxlength="1"
-            :readonly="!!cell"
-            :value="cell"
-            @input="checkForWin"
-            :name="'['+ ir + '][' + ic + ']'"
-          >
-          <!-- <input
-            type="tel"
-            maxlength="1"
-            :value="cell"
-            @input="checkForWin"
-            :name="'['+ ir + '][' + ic + ']'"
-          >-->
-        </td>
-      </tr>
-    </table>
-  </form>
+  <div id="sudoku">
+    <div class="sudokuContainer">
+      <div class="sudokuAd sudokuAdLeft">
+        <div class="sudokuAdSpacer"></div>
+        <div class="adsenseContainer"></div>
+      </div>
+      <div class="sudokuGame">
+        <div class="sudokuBoardContainer">
+          <canvas id="sudokuBoard" width="978" height="978"></canvas>
+        </div>
+        <div class="sudokuInputBar">
+          <div class="button sudokuCell cell1 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell2 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell3 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell4 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell5 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell6 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell7 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell8 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button sudokuCell cell9 unselectedButton">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+            <div class="buttonState disabledButtonState"></div>
+          </div>
+          <div class="button notes unselectedButton" title="Note-taking mode (N)">
+            <div class="buttonState unselectedButtonState"></div>
+            <div class="buttonState selectedButtonState"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sudokuAd sudokuAdRight">
+        <div class="sudokuAdSpacer"></div>
+        <div class="adsenseContainer"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    checkForWin() {
-      const solution = this.$parent.solution
-        .map(el => el.toString())
-        .toString();
+  // methods: {
+  //   checkForWin() {
+  //     const solution = this.$parent.solution
+  //       .map(el => el.toString())
+  //       .toString();
 
-      const data = new URLSearchParams(new FormData(this.$refs.form))
-        .toString()
-        .replace(/%20/g, "+")
-        .replace(/%5B/g, "[")
-        .replace(/%5D/g, "]")
-        .split("&")
-        .map(el => el.match(/=(.*)$/)[1])
-        .toString();
-      if (data === solution) {
-        this.$refs.form.classList.add("solved");
-      } else {
-        this.$refs.form.classList.remove("solved");
-      }
-      return data === solution;
-    }
-  },
+  //     const data = new URLSearchParams(new FormData(this.$refs.form))
+  //       .toString()
+  //       .replace(/%20/g, "+")
+  //       .replace(/%5B/g, "[")
+  //       .replace(/%5D/g, "]")
+  //       .split("&")
+  //       .map(el => el.match(/=(.*)$/)[1])
+  //       .toString();
+  //     if (data === solution) {
+  //       this.$refs.form.classList.add("solved");
+  //     } else {
+  //       this.$refs.form.classList.remove("solved");
+  //     }
+  //     return data === solution;
+  //   }
+  // },
 
   created() {}
 };
